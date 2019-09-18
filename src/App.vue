@@ -3,10 +3,11 @@
     <div class="header">
       <div class="header_box">
         <span>ToDoList</span>
-        <input type="text" v-model="addDoItem" @change="ListPush(addDoItem)" placeholder="添加待办事项" />
+        <input type="text" v-model="addItemText" @change="ListPush()" placeholder="添加待办事项" />
       </div>
     </div>
-    <router-view ref="index" :addDoItem="addDoItem"></router-view>
+    <!-- <router-view ref="index" :addDoItem="addDoItem"></router-view> -->
+    <router-view ref="index"></router-view>
   </div>
 </template>
 
@@ -15,25 +16,27 @@ export default {
   name: "App",
   data() {
     return {
-      addDoItem:"",
-    }
+      addItemText:"",
+    };
   },
   methods: {
-    ListPush(addDoItem){
-      let me =this;
-      me.$refs.index.pushItem(addDoItem);
-      me.addDoItem="";
+    ListPush(){
+      let me = this;
+      me.$store.dispatch("setItem",me.addItemText);
+      console.log(me.$store.state.addDoItem);
+      me.addItemText = "";
+      me.$refs.index.pushItem();
     }
-  },
+  }
 };
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   padding: 0;
 }
-a{
+a {
   text-decoration: none;
 }
 #app {
@@ -57,11 +60,11 @@ a{
   justify-content: space-around;
   align-items: center;
 }
-.header .header_box span{
+.header .header_box span {
   font-size: 32px;
   color: aliceblue;
 }
-.header .header_box input{
+.header .header_box input {
   padding: 6px 0;
   width: 280px;
   height: 20px;

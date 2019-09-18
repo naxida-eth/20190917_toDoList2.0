@@ -53,10 +53,11 @@ export default {
   },
   mounted() {},
   methods: {
-    pushItem(addDoItem) {
+    pushItem() {
       let me = this;
       let isOver = false;
       let doList = me.DoList;
+      let addDoItem = me.$store.state.addDoItem;
       me.DoList.push({
         // addDoItem : 项目具体内容 ,isOver : 判断是否已经完成项目 false 未完成 true 完成
         addDoItem: addDoItem,
