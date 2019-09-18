@@ -56,13 +56,15 @@ export default {
     pushItem(addDoItem) {
       let me = this;
       let isOver = false;
-      me.DoListLength = me.DoList.length + 1;
-      let id = me.DoListLength;
+      let doList = me.DoList;
       me.DoList.push({
         // addDoItem : 项目具体内容 ,isOver : 判断是否已经完成项目 false 未完成 true 完成
         addDoItem: addDoItem,
         isOver: isOver
       });
+      let DoListLength = doList.filter(checkOver).length;
+      me.DoListLength = DoListLength;
+      me.OverListLength = doList.length - DoListLength;
     },
     changeItem(doItem) {
       let me = this;
